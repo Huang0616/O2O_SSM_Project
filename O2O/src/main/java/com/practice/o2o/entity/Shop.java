@@ -15,7 +15,7 @@ public class Shop {
 	//-1 不可用 0 审核中 1 可用
 	private Integer enableStatus;
 	//管理员给店铺的提醒建议
-	private String adcive;
+	private String advice;
 	private Area area;
 	private PersonInfo owner;
 	private ShopCategory shopCategory;
@@ -81,10 +81,10 @@ public class Shop {
 		this.enableStatus = enableStatus;
 	}
 	public String getAdcive() {
-		return adcive;
+		return advice;
 	}
 	public void setAdcive(String adcive) {
-		this.adcive = adcive;
+		this.advice = adcive;
 	}
 	public Area getArea() {
 		return area;
