@@ -1,7 +1,7 @@
 package com.practice.o2o.util;
 
 public class PathUtil {
-	private static String seperator = System.getProperty("file.seperator");
+	private static String seperator = System.getProperty("file.separator");
 	/*
 	 * 获取运行时所需的文件路径的根路径
 	 * 外部文件，比如图片等应该单独存放，不要混在项目根目录下 
@@ -11,9 +11,9 @@ public class PathUtil {
 		String os = System.getProperty("os.name");
 		String basePath = ""; 
 		if(os.toLowerCase().startsWith("win")) {
-			basePath = "D:/projectdev/image;";
+			basePath = "";
 		}else {
-			basePath = "/home/fei/***";
+			basePath = "/Users/fei/Documents/O2OFile";
 		}
 		basePath = basePath.replace("/", seperator);
 		return basePath;
@@ -23,7 +23,7 @@ public class PathUtil {
 	 * @return the address of image of the shop
 	 */
 	public static String getShopImgPath(long shopId) {
-		String imagePath = "/***/ite/shop" + shopId +"/";
+		String imagePath = "upload/item/shop" + shopId +"/";
 		return imagePath.replace("/", seperator);
 	}
 }

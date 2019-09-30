@@ -1,4 +1,4 @@
-package com.practice.o2o.util;
+ package com.practice.o2o.util;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -7,12 +7,13 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
-public class ImagUtil {    
+public class ImageUtil {    
 	private static String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
 	private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss"); 
 	public static final Random r = new Random();
@@ -28,13 +29,13 @@ public class ImagUtil {
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(PathUtil.getImgBasePath()+relativeAddr);
 		try {
-			Thumbnails.of(thumbnail.getInputStream()).size(200,200).
+			Thumbnails.of((thumbnail).getInputStream()).size(200,200).
 			watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath + "/watermark.jpg")),0.25f)
 			.outputQuality(0.8).toFile(dest);;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return relativeAddr;
 	}
 	
 	/*
@@ -52,8 +53,8 @@ public class ImagUtil {
 	 * @param thumbnail
 	 * @return return extension of the input file
 	 */
-	private static String getFileExtension(CommonsMultipartFile cFile) {
-		String originalFileName = cFile.getOriginalFilename();
+	private static String getFileExtension(CommonsMultipartFile thumbnail) {
+		String originalFileName = (thumbnail).getOriginalFilename();
 		return originalFileName.substring(originalFileName.lastIndexOf("."));
 	}
 
