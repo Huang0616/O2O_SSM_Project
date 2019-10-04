@@ -1,14 +1,12 @@
  package com.practice.o2o.util;
 
 import java.io.File;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -22,14 +20,14 @@ public class ImageUtil {
 	 * 输入文件对象和目标地址，返回系统生成的随机地址并创建相应的路径目录
 	 * 
 	 */
-	public static String generateThumbnail(CommonsMultipartFile thumbnail, String targetAddr) {
+	public static String generateThumbnail(InputStream thumbnailInputStream,String fileName, String targetAddr) {
 		String realFileName = getRandomFileName();
-		String extension = getFileExtension(thumbnail);
+		String extension = getFileExtension(fileName);
 		makeDirPath(targetAddr);
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(PathUtil.getImgBasePath()+relativeAddr);
 		try {
-			Thumbnails.of((thumbnail).getInputStream()).size(200,200).
+			Thumbnails.of(thumbnailInputStream).size(200,200).
 			watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath + "/watermark.jpg")),0.25f)
 			.outputQuality(0.8).toFile(dest);;
 		} catch (Exception e) {
@@ -53,9 +51,8 @@ public class ImageUtil {
 	 * @param thumbnail
 	 * @return return extension of the input file
 	 */
-	private static String getFileExtension(CommonsMultipartFile thumbnail) {
-		String originalFileName = (thumbnail).getOriginalFilename();
-		return originalFileName.substring(originalFileName.lastIndexOf("."));
+	private static String getFileExtension(String fileName) {
+		return fileName.substring(fileName.lastIndexOf("."));
 	}
 
 	/* 

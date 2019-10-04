@@ -1,5 +1,6 @@
-package com.practice.o2o.web.shopadmin;
+ package com.practice.o2o.web.shopadmin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ import com.practice.o2o.util.CodeUtil;
 import com.practice.o2o.util.HttpServletRequestUtil;
 
 @Controller
-@RequestMapping("shopadmin")
+@RequestMapping("/shopadmin")
 public class ShopManagementController {
 	@Autowired
 	private ShopService shopService;
@@ -93,14 +94,21 @@ public class ShopManagementController {
 		//2.注册店铺
 		if(shop != null&& shopImg != null) {
 			PersonInfo owner = new PersonInfo();
+			//session TODO
 			owner.setUserId(1l);
 			shop.setOwner(owner);
-			shopExecution se = shopService.addShop(shop, shopImg);
-			if(se.getState()==ShopStateEnum.CHECK.getState()) {
-				modelMap.put("success",true);
-			}else {
+			shopExecution se;
+			try {
+				se = shopService.addShop(shop, shopImg.getInputStream(),shopImg.getOriginalFilename());
+				if(se.getState()==ShopStateEnum.CHECK.getState()) {
+					modelMap.put("success",true);
+				}else {
+					modelMap.put("success",false);
+					modelMap.put("errMsg",se.getStateInfo());
+				}
+			} catch (IOException e) {
 				modelMap.put("success",false);
-				modelMap.put("errMsg",se.getStateInfo());
+				modelMap.put("errMsg",e.getMessage());
 			}
 			return modelMap;
 		}else {
