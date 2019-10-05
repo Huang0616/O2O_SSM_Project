@@ -11,6 +11,7 @@ public class PathUtil {
 		String os = System.getProperty("os.name");
 		String basePath = ""; 
 		if(os.toLowerCase().startsWith("win")) {
+			//window 系统未定义，因为我是mac os
 			basePath = "";
 		}else {
 			basePath = "/Users/fei/Documents/O2OFile";

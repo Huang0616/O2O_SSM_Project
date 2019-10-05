@@ -27,9 +27,7 @@ public class ImageUtil {
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(PathUtil.getImgBasePath()+relativeAddr);
 		try {
-			Thumbnails.of(thumbnailInputStream).size(200,200).
-			watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath + "/watermark.jpg")),0.25f)
-			.outputQuality(0.8).toFile(dest);;
+			Thumbnails.of(thumbnailInputStream).size(200,200).outputQuality(0.8).toFile(dest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,5 +61,23 @@ public class ImageUtil {
 		int rannum = r.nextInt(89999)+10000;
 		String nowTimeStr = sDateFormat.format(new Date());
  		return nowTimeStr+rannum;
+	}
+	
+	/**
+	 * storePath, 如果是文件路径，删除该文件
+	 * 如果是目录，则删除目录下所有文件
+	 * @param storePath
+	 */
+	public static void deleteFileOrPath(String storePath) {
+		File fileOrPath = new File(PathUtil.getImgBasePath() + storePath);
+		if(fileOrPath.exists()) {
+			if(fileOrPath.isDirectory()) {
+				File files[] = fileOrPath.listFiles();
+				for (int i = 0; i < files.length; i++) {
+					files[i].delete();
+				}
+			}
+			fileOrPath.delete();
+		}
 	}
 }

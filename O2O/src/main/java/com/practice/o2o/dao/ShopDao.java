@@ -4,6 +4,11 @@ import com.practice.o2o.entity.Shop;
 
 public interface ShopDao {
 	/*
+	 * 查询店铺by shop id
+	 * @return shopId
+	 */
+	Shop queryByShopId(long id);
+	/*
 	 * 新增店铺
 	 * @param shop
 	 * @return
