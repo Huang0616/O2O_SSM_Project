@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,7 +25,21 @@ import com.practice.o2o.exceptions.ShopOperationException;
 public class ShopServiceTest extends BaseTest{
 	@Autowired
 	private ShopService shopService; 
+	
 	@Test
+	public void testQueryShopList() {
+		Shop shopCondition = new Shop();
+		PersonInfo owner = new PersonInfo();
+		owner.setUserId(1l);
+		shopCondition.setShopName("1");
+		shopCondition.setOwner(owner);
+		shopExecution se = shopService.getShopList(shopCondition, 2, 6);
+		System.out.println(se.getShopList().size());
+		System.out.println(se.getCount());
+	}
+	
+	@Test
+	@Ignore
 	public void testModifyshop() throws ShopOperationException, FileNotFoundException{
 		Shop shop = new Shop();
 		shop.setShopId(1l);

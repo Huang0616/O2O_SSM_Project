@@ -3,6 +3,7 @@ package com.practice.o2o.dao;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -17,6 +18,17 @@ import com.practice.o2o.entity.ShopCategory;
 public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao shopDao;
+	
+	@Test
+	public void testQueryShopList() {
+		Shop shopCondition = new Shop();
+		PersonInfo owner = new PersonInfo();
+		owner.setUserId(1l);
+		shopCondition.setShopName("3");
+		shopCondition.setOwner(owner);
+		List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 5);
+		System.out.println(shopList.size());
+	}
 	
 	@Test
 	@Ignore

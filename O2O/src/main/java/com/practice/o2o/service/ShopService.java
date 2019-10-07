@@ -8,6 +8,14 @@ import com.practice.o2o.exceptions.ShopOperationException;
 
 public interface ShopService {
 	/**
+	 * 根据shopCondition模糊查询店铺列表
+	 * @param shopCondition
+	 * @param rowIndex
+	 * @param pageSize
+	 * @return
+	 */
+	public shopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize);
+	/**
 	 * 增加店铺
 	 * @param shop
 	 * @param shopImg
