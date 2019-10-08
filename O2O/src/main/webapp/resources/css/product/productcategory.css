@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.row-product-category{
+	border:1px soild #999;
+	padding:.5rem;
+	border-bottom:none;
+}
+
+.row-product-category:last-child{
+	border-bottom:1px soild #999
+}
+
+.category-input{
+	border:none;
+	background-color: #eee;
+}
+
+.productCategory-name{
+	while-space:nowrap;
+	overflow-x:scroll;
+}

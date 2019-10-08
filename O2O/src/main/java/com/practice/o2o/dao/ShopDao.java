@@ -8,10 +8,6 @@ import com.practice.o2o.entity.ProductCategory;
 import com.practice.o2o.entity.Shop;
 
 public interface ShopDao {
-	/*
-	 * 按shopID查询shop中的商品类别
-	 */
-	List<ProductCategory> queryProductCategoryListById(long id); 
 	/**
 	 * 分页查询，模糊查询
 	 * @param shopCondition 查询条件

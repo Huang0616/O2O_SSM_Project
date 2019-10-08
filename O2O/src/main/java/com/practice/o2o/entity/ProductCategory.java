@@ -3,16 +3,16 @@ package com.practice.o2o.entity;
 import java.util.Date;
 
 public class ProductCategory {
-	private Long productCategory;
+	private Long productCategoryId;
 	private Long shopId;
 	private String productCategoryName;
 	private Integer priority;
 	private Date createTime;
 	public Long getProductCategory() {
-		return productCategory;
+		return productCategoryId;
 	}
 	public void setProductCategory(Long productCategory) {
-		this.productCategory = productCategory;
+		this.productCategoryId = productCategory;
 	}
 	public Long getShopId() {
 		return shopId;

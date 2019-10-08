@@ -21,10 +21,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.o2o.dto.shopExecution;
 import com.practice.o2o.entity.Area;
 import com.practice.o2o.entity.PersonInfo;
+import com.practice.o2o.entity.ProductCategory;
 import com.practice.o2o.entity.Shop;
 import com.practice.o2o.entity.ShopCategory;
 import com.practice.o2o.enums.ShopStateEnum;
 import com.practice.o2o.service.AreaService;
+import com.practice.o2o.service.ProductCategoryService;
 import com.practice.o2o.service.ShopCategoryService;
 import com.practice.o2o.service.ShopService;
 import com.practice.o2o.util.CodeUtil;
@@ -39,30 +41,25 @@ public class ShopManagementController {
 	private AreaService areaService;
 	@Autowired
 	private ShopCategoryService shopCategoryService;
+	@Autowired
+	private ProductCategoryService productCategoryService;
 	
-//	@RequestMapping(value = "/getproductcategorylist", method = RequestMethod.GET)
-//	@ResponseBody
-//	private Map<String, Object> getProductCategoryList(HttpServletRequest request){
-//		Map<String,Object> modelMap = new HashMap<String, Object>();
-//		long shopId = HttpServletRequestUtil.getLong(request, "shopId");
-//		if(shopId <= 0) {
-//			Object currentShopObj = request.getSession().getAttribute("currentShop");
-//			if(currentShopObj == null) {
-//				modelMap.put("redirect", true);
-//				modelMap.put("url", "/O2O/shopadmin/shopmanagement");
-//			}else {
-//				Shop currentShop = (Shop) currentShopObj;
-//				modelMap.put("redirect", false);
-//				modelMap.put("shopId", currentShop.getShopId());
-//			}
-//		}else {
-//			Shop currentShop = new Shop();
-//			currentShop.setShopId(shopId);
-//			request.getSession().setAttribute("currentShop", currentShop);
-//			modelMap.put("redirect", false);
-//		}
-//		return modelMap;
-//	}
+	@RequestMapping(value = "/getproductcategorylist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getProductCategoryList(HttpServletRequest request){
+		Map<String,Object> modelMap = new HashMap<String, Object>();
+		Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+		try {
+			List<ProductCategory> productCategoryList = 
+					productCategoryService.getProductCategoryList((long) currentShop.getShopId());
+			modelMap.put("productCategoryList", productCategoryList);
+			modelMap.put("success", true);
+		} catch (Exception e) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", e.getMessage());
+		}
+		return modelMap;
+	}
 	
 	@RequestMapping(value = "/getshopmanagementinfo", method = RequestMethod.GET)
 	@ResponseBody
